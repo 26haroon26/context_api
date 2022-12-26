@@ -15,8 +15,15 @@ function App() {
   // const [fullName, setFullName] = useState("");
 
 
-  const logoutHandler = () => {
+  const logoutHandler = async() => {
 
+try {
+      let response = await axios.post(
+        `${baseUrl}/logout`,
+             
+    } catch (err) {
+      console.log("error", err);
+    }
   }
 
   // useEffect(() => {
