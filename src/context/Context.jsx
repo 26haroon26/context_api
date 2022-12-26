@@ -6,7 +6,7 @@ export const GlobalContext = createContext("Initial Value");
 let data = {
   darkTheme: true,
   user: {},
-  isLogin: null,
+  isLogin: false,
 }
 
 export default function ContextProvider({ children }) {

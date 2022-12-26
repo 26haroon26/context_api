@@ -1,62 +1,126 @@
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 import { useState } from "react";
-import axios from 'axios';
 
 
-const baseUrl = "https://crazy-wrap-frog.cyclic.app"
+const baseUrl = "https://crazy-wrap-frog.cyclic.app";
 
+const theme = createTheme();
 
-function Signup() {
+export default function SignUp() {
+    const [result, setresult] = useState('')
 
-    const [result, setResult] = useState("");
-
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    
-    const signupHandler = async (e) => {
-        e.preventDefault();
-
-        try {
-            let response = await axios.post(`${baseUrl}/signup`, {
-                firstName: name,
-                lastName: name,
-                email: email,
-                password: password
-            })
-
-
-            console.log("signup successful");
-            setResult("signup successful")
-
-        } catch (e) {
-            console.log("e: ", e);
-        }
-
-
-        // e.reset();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const data = new FormData(event.currentTarget);
+      let response = await axios.post(`${baseUrl}/signup`, {
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        password: data.get("password"),
+      });
+      setresult("signup successful")
+    } catch (err) {
+      console.log("error", err);
     }
+  };
 
-
-    return (
-        <>
-            <h4>This is Signup page</h4>
-
-            <form onSubmit={signupHandler}>
-
-                Name: <input type="text" name="name" placeholder="Enter your name" onChange={(e) => { setName(e.target.value) }} />
-                <br />
-                Email: <input type="email" name="username" autoComplete="username" placeholder="email" onChange={(e) => { setEmail(e.target.value) }} />
-                <br />
-                Password: <input type="password" name="new-password" autoComplete="new-password" placeholder="password" onChange={(e) => { setPassword(e.target.value) }} />
-                <br />
-                Password: <input type="password" name="new-password" autoComplete="new-password" placeholder="confirm password" />
-                <br />
-                <button type="submit">Signup</button>
-            </form>
-            <p>{result}</p>
-        </>
-    )
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+            <Typography component="h1" variant="h5">
+            {result}
+          </Typography>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item></Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
 }
-
-export default Signup;
