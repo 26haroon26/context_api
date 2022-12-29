@@ -25,26 +25,54 @@ function App() {
       console.log("error", err);
     }
   };
+  // useEffect(() => {
+  //   const getProfile = async () => {
+  //     try {
+  //       let response = await axios.get(`${state.baseUrl}/products`, {
+  //         withCredentials: true,
+  //       });
+
+  //       dispatch({
+  //         type: "USER_LOGIN",
+  //       });
+  //     } catch (error) {
+  //       dispatch({
+  //         type: "USER_LOGOUT",
+  //       });
+  //       console.log("axios error: ", error);
+
+  //     }
+  //   };
+
+  //   getProfile();
+  // }, []);
   useEffect(() => {
-    const getProfile = async () => {
-      try {
-        let response = await axios.get(`${state.baseUrl}/products`, {
-          withCredentials: true,
-        });
 
-        dispatch({
-          type: "USER_LOGIN",
-        });
-      } catch (error) {
-        dispatch({
-          type: "USER_LOGOUT",
-        });
-        console.log("axios error: ", error);
+    axios.get(`${state.baseUrl}/profile`, {
+      withCredentials: true
+    })
+      .then((res) => {
+        console.log("res: ", res.data);
 
-      }
+        if (res.data.email) {
+
+          dispatch({
+            type: "USER_LOGIN",
+            payload: {
+              name: res.data.name,
+              email: res.data.email,
+              _id: res.data._id
+            }
+          })
+        } else {
+          dispatch({ type: "USER_LOGOUT" })
+        }
+      }).catch((e) => {
+        dispatch({ type: "USER_LOGOUT" })
+      })
+
+    return () => {
     };
-
-    getProfile();
   }, []);
 
   return (
