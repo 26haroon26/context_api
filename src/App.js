@@ -30,7 +30,6 @@ function App() {
           withCredentials: true,
         });
 
-<<<<<<< HEAD
         console.log("response: ", response);
 
         dispatch({
@@ -38,57 +37,9 @@ function App() {
         });
       } catch (error) {
         console.log("axios error: ", error);
-=======
-  const logoutHandler = async() => {
-
-try {
-      let response = await axios.post(
-        `${baseUrl}/logout`,
-             
-    } catch (err) {
-      console.log("error", err);
-    }
-  }
-
-  // useEffect(() => {
-
-  //   const baseUrl = "https://crazy-wrap-frog.cyclic.app"
-
-  //   const getProfile = async () => {
-
-  //     try {
-  //       let response = await axios.get(`${baseUrl}/products`, {
-  //         withCredentials: true
-  //       })
-
-  //       console.log("response: ", response);
-
-
-  //       dispatch({
-  //         type: 'USER_LOGIN'
-  //       })
-  //     } catch (error) {
-
-  //       console.log("axios error: ", error);
-
-  //       dispatch({
-  //         type: 'USER_LOGOUT'
-  //       })
-  //     }
-
-
-
-  //   }
-  //   getProfile();
-
-  // }, [])
->>>>>>> 2b6eb7b1c88858a8e3407c408efbf0e0e7051864
-
-        dispatch({
-          type: "USER_LOGOUT",
-        });
       }
     };
+
     getProfile();
   }, []);
 
