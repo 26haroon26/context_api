@@ -9,9 +9,9 @@ let data = {
   isLogin: null,
   baseUrl:
     window.location.href.split(":")[0] === "http"
-      ? "http://localhost:4000/api/vi"
-      : "https://crazy-wrap-frog.cyclic.app",
-  // baseUrl:"https://crazy-wrap-frog.cyclic.app/api/vi",
+      ? "http://localhost:4000/api/v1"
+      : "https://crazy-wrap-frog.cyclic.app/api/v1",
+  // baseUrl:"https://crazy-wrap-frog.cyclic.app/api/v1",
 };
 
 export default function ContextProvider({ children }) {
