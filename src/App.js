@@ -15,10 +15,9 @@ function App() {
 
   const logoutHandler = async () => {
     try {
-      let response = await axios.get(`${state.baseUrl}/log`,{
+      let response = await axios.get(`${state.baseUrl}/logout`,{
         withCredentials:true
       });
-      console.log(response);
       dispatch({
         type: "USER_LOGOUT",
       });
