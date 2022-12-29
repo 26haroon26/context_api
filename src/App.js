@@ -21,6 +21,9 @@ function App() {
       });
     } catch (err) {
       console.log("error", err);
+      dispatch({
+          type: "USER_LOGOUT",
+      });
     }
   };
   useEffect(() => {
