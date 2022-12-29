@@ -15,7 +15,9 @@ function App() {
 
   const logoutHandler = async () => {
     try {
-      let response = await axios.post(`${state.baseUrl}/logout`);
+      let response = await axios.post(`${state.baseUrl}/logout`,{
+        withCredentials:true
+      });
       dispatch({
         type: "USER_LOGOUT",
       });
@@ -30,13 +32,15 @@ function App() {
           withCredentials: true,
         });
 
-        console.log("response: ", response);
-
         dispatch({
           type: "USER_LOGIN",
         });
       } catch (error) {
+        dispatch({
+          type: "USER_LOGOUT",
+        });
         console.log("axios error: ", error);
+
       }
     };
 

@@ -7,11 +7,11 @@ let data = {
   darkTheme: true,
   user: {},
   isLogin: null,
-  // baseUrl:
-  //   window.location.href.split(":")[0] === "http"
-  //     ? "http://localhost:4000"
-  //     : "https://crazy-wrap-frog.cyclic.app",
-  baseUrl:"https://crazy-wrap-frog.cyclic.app",
+  baseUrl:
+    window.location.href.split(":")[0] === "http"
+      ? "http://localhost:4000/api/vi"
+      : "https://crazy-wrap-frog.cyclic.app",
+  // baseUrl:"https://crazy-wrap-frog.cyclic.app/api/vi",
 };
 
 export default function ContextProvider({ children }) {
