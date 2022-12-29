@@ -18,6 +18,7 @@ function App() {
       let response = await axios.post(`${state.baseUrl}/log`,{
         withCredentials:true
       });
+      console.log(response);
       dispatch({
         type: "USER_LOGOUT",
       });
