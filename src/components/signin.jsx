@@ -13,7 +13,6 @@ import axios from "axios";
 import { useContext } from "react";
 import { GlobalContext } from "../context/Context";
 import { useState } from "react";
-const baseUrl = "https://crazy-wrap-frog.cyclic.app";
 const theme = createTheme();
 
 export default function SignIn() {
@@ -24,7 +23,7 @@ export default function SignIn() {
     try {
       const data = new FormData(event.currentTarget);
       let response = await axios.post(
-        `${baseUrl}/login`,
+        `${state.baseUrl}/login`,
         {
           email: data.get("email"),
           password: data.get("password"),

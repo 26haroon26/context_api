@@ -10,21 +10,22 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-import { useState } from "react";
+import { useState ,useContext } from "react";
+import { GlobalContext } from "../context/Context";
 
 
-const baseUrl = "https://crazy-wrap-frog.cyclic.app";
 
 const theme = createTheme();
 
 export default function SignUp() {
-    const [result, setresult] = useState('')
+  let { state, dispatch } = useContext(GlobalContext);
+  const [result, setresult] = useState('')
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const data = new FormData(event.currentTarget);
-      let response = await axios.post(`${baseUrl}/signup`, {
+      let response = await axios.post(`${state.baseUrl}/signup`, {
         firstName: data.get("firstName"),
         lastName: data.get("lastName"),
         email: data.get("email"),
