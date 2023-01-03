@@ -34,11 +34,12 @@ export default function SignIn() {
       );
       dispatch({
                 type: "USER_LOGIN",
-                payload: null,
+                payload: response.data.profile,
               });
         setresult("signin successful")
     } catch (err) {
       console.log("error", err);
+      setresult(err)
     }
   };
 

@@ -15,9 +15,13 @@ function App() {
 
   const logoutHandler = async () => {
     try {
-      let response = await axios.get(`${state.baseUrl}/logout`,{
-        withCredentials:true
-      });
+      let response = await axios.post(
+        `${state.baseUrl}/logout`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       dispatch({
         type: "USER_LOGOUT",
       });
@@ -28,24 +32,56 @@ function App() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        let response = await axios.get(`${state.baseUrl}/products`, {
+        let response = await axios.get(`${state.baseUrl}/profile`,{}, {
           withCredentials: true,
         });
 
         dispatch({
           type: "USER_LOGIN",
-        });
+          payload: response.data,
+        })
       } catch (error) {
         dispatch({
           type: "USER_LOGOUT",
         });
         console.log("axios error: ", error);
-
       }
     };
 
     getProfile();
   }, []);
+
+  // axios intercaption js se hr request me withCredentials true ho jae ga sb me alg alg nahi lgana pare ga
+
+  useEffect(() => {
+    // request me interceptors add kya he
+    // jo ke request send hone se pehle add ho ga
+    axios.interceptors.request.use(
+      (config) => {
+        config.withCredentials = true;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+    // respone me interceptors add kya he
+    // jo ke response aane ke bad add ho ga
+    axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error.response.status === 401) {
+          dispatch({
+            type: "USER_LOGOUT",
+          });
+        }
+        return Promise.reject(error);
+      }
+    );
+  }, []);
+
   // useEffect(() => {
 
   //   axios.get(`${state.baseUrl}/profile`, {
@@ -84,7 +120,7 @@ function App() {
             <Link to={`/`}>Home</Link>{" "}
           </li>
           <li>
-            {" "}
+            {state?.user?.firstName} {state?.user?.lastName}
             <button onClick={logoutHandler}>Logout</button>{" "}
           </li>
         </ul>
