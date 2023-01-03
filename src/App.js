@@ -32,14 +32,18 @@ function App() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        let response = await axios.get(`${state.baseUrl}/profile`,{}, {
-          withCredentials: true,
-        });
+        let response = await axios.get(
+          `${state.baseUrl}/profile`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
 
         dispatch({
           type: "USER_LOGIN",
           payload: response.data,
-        })
+        });
       } catch (error) {
         dispatch({
           type: "USER_LOGOUT",
