@@ -34,7 +34,6 @@ function App() {
       try {
         let response = await axios.get(
           `${state.baseUrl}/profile`,
-          {},
           {
             withCredentials: true,
           }
